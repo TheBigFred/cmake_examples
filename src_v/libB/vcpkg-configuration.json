@@ -1,0 +1,17 @@
+{
+  "default-registry": {
+    "kind": "git",
+    "baseline": "64e15f6669480b2d2bff1e5e815c571a8213421e",
+    "repository": "https://github.com/microsoft/vcpkg"
+  },
+  "registries": [
+    {
+      "kind": "git",
+      "repository": "ssh://git@github.com:TheBigFred/vcpkg-registry.git",
+      "baseline": "",
+      "packages": [
+        "liba"
+      ]
+    }
+  ]
+}

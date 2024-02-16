@@ -1,0 +1,36 @@
+﻿{
+  "version": 6,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 25,
+    "patch": 0
+  },
+  "configurePresets": [
+      {
+        "name": "default",
+        "hidden": true,
+        "generator": "",
+        "binaryDir": "${sourceDir}/_build-${presetName}$env{configPostfix}",
+        "cacheVariables": {
+          "CMAKE_INSTALL_PREFIX": "${sourceDir}/_install-${presetName}$env{configPostfix}",
+          "ENABLE_TEST_libA": "ON",
+          "ENABLE_TEST_libB": "ON",
+          "ENABLE_TEST_App": "ON"
+        }
+      },
+      { "name": "vcpkg",
+        "hidden": true,
+        "inherits": ["default"],
+        "cacheVariables": {
+          "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+          "VCPKG_MANIFEST_FEATURES": "tests"
+        }
+      },
+      { "name": "static",         "inherits": ["default"], "cacheVariables": { "BUILD_SHARED_LIBS": "OFF" } },
+      { "name": "shared",         "inherits": ["default"], "cacheVariables": { "BUILD_SHARED_LIBS": "ON" } },
+      { "name": "vcpkg-static",   "inherits": ["vcpkg"] },
+      { "name": "vcpkg-shared",   "inherits": ["vcpkg","shared"] },
+      { "name": "overlay-static", "inherits": ["vcpkg"],          "cacheVariables": { "VCPKG_OVERLAY_PORTS": "$env{VCPKG_CUSTOM_OVERLAY}" } },
+      { "name": "overlay-shared", "inherits": ["vcpkg","shared"], "cacheVariables": { "VCPKG_OVERLAY_PORTS": "$env{VCPKG_CUSTOM_OVERLAY}" } }
+  ]
+}

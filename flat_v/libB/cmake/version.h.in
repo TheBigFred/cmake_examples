@@ -1,0 +1,22 @@
+////////////////////////////////////////////////////////////////////////////////
+// File      : version.h
+// Contents  :
+//
+// Author    : TheBigFred
+// URL       : https://github.com/TheBigFred/cmake_examples
+//
+//-----------------------------------------------------------------------------
+//  LGPL V3.0 - https://www.gnu.org/licences/lgpl-3.0.txt
+//-----------------------------------------------------------------------------
+////////////////////////////////////////////////////////////////////////////////
+
+#pragma once
+
+#include <cstdint>
+
+namespace @PROJECT_NAME_U@
+{
+   void version(const char** name, uint32_t* major, uint32_t* minor, uint32_t* build, const char** date);
+   const char* versionStr();
+
+}  // namespace @PROJECT_NAME_U@

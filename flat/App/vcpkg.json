@@ -1,0 +1,12 @@
+{
+  "dependencies": [
+    "libb"
+  ],
+  "features": {
+    "tests": { "description": "Build tests", "dependencies": ["gtest"] }
+  },
+  "overrides": [
+    { "name": "gtest", "version": "1.12.1" },
+    { "name": "liba", "version": "1.0.0#1" }
+  ]
+}

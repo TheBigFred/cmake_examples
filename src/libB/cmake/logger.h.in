@@ -1,0 +1,44 @@
+////////////////////////////////////////////////////////////////////////////////
+// File      : logger.h
+// Contents  :
+//
+//-----------------------------------------------------------------------------
+// Copyright 2024, EVS Broadcast Equipment S.A.
+//-----------------------------------------------------------------------------
+////////////////////////////////////////////////////////////////////////////////
+
+#pragma once
+
+#include <cstdarg>
+#include <cstdint>
+
+namespace @PROJECT_NAME_U@ {
+
+enum LogSeverity
+{
+   SEV_FORCE = 0,
+   SEV_ERROR,
+   SEV_WARNING,
+   SEV_INFO,
+   SEV_VERBOSE,
+   SEV_DEBUG,
+   _LOWEST_SEV_VAL_
+};
+
+void Log(uint32_t severity, const char* message, ...);
+void SetLogger(void(*pLog)(void* self, uint32_t,const char*, va_list), void* self=nullptr);
+int SetMinimumSeverity(uint32_t);
+
+extern void(*pLog)(void*, uint32_t, const char*, va_list);
+
+#ifndef LOGGER_MIN_SEVERITY
+#   define LOG(...) Log(__VA_ARGS__)      
+#else
+#   define LOG(_sev_, ...)                  \
+        if ((_sev_) <= LOGGER_MIN_SEVERITY) \
+        {                                   \
+            Log(_sev_, __VA_ARGS__);        \
+        }
+#endif
+
+}  // namespace @PROJECT_NAME_U@

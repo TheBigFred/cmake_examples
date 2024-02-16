@@ -1,0 +1,43 @@
+////////////////////////////////////////////////////////////////////////////////
+// File      : logger.cpp
+// Contents  :
+//
+//-----------------------------------------------------------------------------
+// Copyright 2024, EVS Broadcast Equipment S.A.
+//-----------------------------------------------------------------------------
+////////////////////////////////////////////////////////////////////////////////
+
+#include "logger.h"
+
+namespace @PROJECT_NAME_U@ {
+
+void (*pLog)(void* self, uint32_t Severity, const char* Message, va_list) = nullptr;
+void* pSelf = nullptr;
+uint32_t MinSeverity = SEV_INFO;
+
+void Log(uint32_t severity, const char* message, ...)
+{
+   if (pLog && severity <= MinSeverity)
+   {
+      std::va_list args;
+      va_start(args, message);
+      pLog(pSelf, severity, message, args);
+      va_end(args);
+   }
+}
+
+void SetLogger(void(*pLogger)(void*, uint32_t, const char*, va_list), void* self/*=nullptr*/)
+{
+   pLog = pLogger;
+   pSelf = self;
+}
+
+int SetMinimumSeverity(uint32_t sev)
+{
+   if (sev > _LOWEST_SEV_VAL_)
+      return -1;
+   MinSeverity = sev;
+   return 0;
+}
+
+}  // namespace @PROJECT_NAME_U@
